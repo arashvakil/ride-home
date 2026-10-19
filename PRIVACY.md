@@ -6,9 +6,26 @@ Ride Home processes information locally on the device:
 - The favorite app order and the Home tab's position, stored in private preferences.
 - Current media volume, to display and adjust the volume slider.
 
-It has no network permission, accounts, ads, analytics, crash-reporting service or
-remote update check. It does not send this information to the project maintainer.
-The Android backup mechanism is disabled for this app.
+It has no accounts, ads, analytics or crash-reporting service. It does not send
+favorites, installed-app details or accessibility information to the project
+maintainer. The Android backup mechanism is disabled for this app.
+
+## Updates
+
+Official release builds check GitHub's latest-release metadata when you return Home,
+at most once every six hours. You can also check from Settings. Developer builds
+skip automatic checks. Update requests disclose ordinary connection information
+(such as your IP address) to GitHub and its download infrastructure, subject to
+[GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+No device identifier, app inventory, favorites or ride information is uploaded.
+
+When a newer release is available, its APK downloads into private app storage.
+You can disable automatic checks in Ride Home's update settings.
+Ride Home verifies its SHA-256 hash, package, newer version and installed signing
+certificate before opening Android's installer. Installation always requires your
+confirmation. Android may also ask you to allow Ride Home to install unknown apps.
+This permission is used only for the update you select; Ride Home cannot silently
+install updates.
 
 ## Accessibility access
 

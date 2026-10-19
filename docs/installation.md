@@ -39,7 +39,8 @@ the tablet; no entry can indicate a cable, port or debugging-setup problem.
 
 ## Before you change the default launcher
 
-Build the developer APK using the README. Retain another working launcher, record
+Download the APK from the [latest release](https://github.com/arashvakil/ride-home/releases/latest),
+or build a developer APK using the README. Retain another working launcher, record
 which one is your current default, and ensure Android Settings remains accessible.
 ADB debugging must already be enabled and authorized if you plan to use ADB recovery.
 Ride Home cannot unlock developer settings or repair inaccessible firmware.
@@ -50,7 +51,7 @@ a command to run literally. Wireless ADB is optional; USB is sufficient.
 ```sh
 adb -s SERIAL shell cmd package resolve-activity --brief \
   -a android.intent.action.MAIN -c android.intent.category.HOME
-adb -s SERIAL install -r dist/RideHome-debug.apk
+adb -s SERIAL install -r RideHome-2.2.0.apk
 adb -s SERIAL shell am start -n nyc.arash.ridehome/.Home
 ```
 
@@ -63,6 +64,28 @@ home app to select it. On devices supporting the command, the ADB alternative is
 ```sh
 adb -s SERIAL shell cmd package set-home-activity nyc.arash.ridehome/.Home
 ```
+
+## Updates
+
+Official release builds check for a newer release when returning to the home screen,
+at most once every six hours. Use **Ride Home → Settings → Updates → Check now** to
+check immediately. Newer releases download in the background; choose Install when
+convenient and confirm Android's package-installer prompt. Automatic checks can
+be disabled in the same update settings. On Android 8+, Android may ask you
+to allow Ride Home to install unknown apps. You can revoke this in Android Settings
+at any time. Updates are never installed silently.
+
+The download must match the release's SHA-256 hash and have Ride Home's package,
+a newer version code and exactly the same signing certificate as your installed app.
+A failed verification does not replace your app. Use the GitHub release page to
+retry manually if needed. Updates preserve favorites and tab position.
+
+Earlier prototype builds and local developer builds need their first official APK
+installed manually, for example `adb -s SERIAL install -r RideHome-2.2.0.apk`.
+The original prototype key is retained for official releases. Independently built
+APKs may have a different key and cannot install over the official app. Never
+uninstall or clear data just to work around a signing mismatch; keep the original
+key or return to your prior launcher while resolving it.
 
 ## Returning to another launcher
 

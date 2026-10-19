@@ -4,7 +4,7 @@ A quiet, touch-first Android launcher with a reliable way back home.
 
 Built for a touchscreen exercise bike: large app tiles, a static favorites screen,
 and a small **Home** tab that stays within reach inside other apps. No feed, ads,
-account, analytics, network permission, or runtime libraries.
+account, analytics, or runtime libraries. Official builds can check GitHub for updates.
 
 > **Status:** early developer release. Tested on a SoulCycle SH-1 running Android 9
 > at 1920 × 1080. Other Android devices are experimental. This project is independent
@@ -41,6 +41,18 @@ for the community-reported camera-area gesture, version-dependent access codes, 
 linked video. The video demonstrates **Peloton APK sideloading**, not the SoulCycle
 settings-unlock procedure. Use a **USB-C cable that supports data**, not just charging.
 
+## Download and install
+
+Download **RideHome-2.2.0.apk** from the [latest release](https://github.com/arashvakil/ride-home/releases/latest).
+You do not need Android Studio or a source build. Open the APK on the tablet and
+allow that browser/file manager to install apps when Android prompts, or use ADB
+as shown below. Keep your previous launcher until Ride Home is working.
+
+Official releases check for updates when you return Home, at most once every six
+hours. **Settings → Updates → Check now** checks immediately. A newer release downloads in the
+background; you choose when to install and confirm Android's installer.
+Favorites and the Home tab's position are retained. See [updates and recovery](docs/installation.md#updates).
+
 ## Build
 
 Requirements: macOS or Linux, Bash, Python 3, JDK 17, and the Android SDK with
@@ -60,8 +72,9 @@ key: `RIDEHOME_DEBUG_KEYSTORE=/path/to/existing-key.p12 ./build.sh` (alias `ride
 local developer password `android`). A signing mismatch must not be resolved by
 silently uninstalling the app or clearing its data.
 
-This repository does not yet provide a maintainer-signed APK or automatic updates.
-The generated developer APK is intended for local testing, not an official release.
+The default developer build does not check for updates. Maintainer release builds
+use a persistent private key and explicit `--release` mode; see [release preparation](docs/releases.md).
+Building never uploads or publishes an APK.
 
 ## Install safely
 
@@ -72,7 +85,7 @@ Ride Home.
 ```sh
 adb devices -l
 # Replace SERIAL with the intended tablet; do not target another connected device.
-adb -s SERIAL install -r dist/RideHome-debug.apk
+adb -s SERIAL install -r RideHome-2.2.0.apk
 adb -s SERIAL shell am start -n nyc.arash.ridehome/.Home
 ```
 
@@ -94,9 +107,9 @@ See [installation and recovery](docs/installation.md) for ADB alternatives.
 
 The accessibility service draws its own controls and invokes Android global actions.
 It does **not** subscribe to accessibility events, retrieve screen content, inspect
-windows, capture keys, or intercept gestures. The app requests no Android permissions;
-Android separately authorizes the accessibility service in Settings. Favorites and tab
-position are stored locally. Read the [privacy statement](PRIVACY.md).
+windows, capture keys, or intercept gestures. Network access supports GitHub update
+checks and APK downloads; Android separately authorizes accessibility and installation
+of downloaded updates. Favorites and tab position stay local. Read the [privacy statement](PRIVACY.md).
 
 Minimum Android API 23 (Android 6); target API 28 is intentional for the Android 9
 appliance currently tested. Compilation against SDK 35 does not imply Android 15
