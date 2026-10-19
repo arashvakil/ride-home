@@ -9,7 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 A = "{http://schemas.android.com/apk/res/android}"
 manifest = ET.parse(ROOT / "AndroidManifest.xml").getroot()
 assert manifest.attrib["package"] == "nyc.arash.ridehome"
-assert not manifest.findall("uses-permission"), "New permissions require explicit privacy review"
+assert {p.attrib[A + "name"] for p in manifest.findall("uses-permission")} == {
+    "android.permission.INTERNET", "android.permission.REQUEST_INSTALL_PACKAGES"
+}, "Only release-update network and user-confirmed installation permissions are allowed"
+receiver = manifest.find("application/receiver")
+assert receiver is not None and receiver.attrib[A + "exported"] == "false"
 service = manifest.find("application/service")
 assert service is not None and service.attrib[A + "permission"] == "android.permission.BIND_ACCESSIBILITY_SERVICE"
 config = ET.parse(ROOT / "res/xml/navigation.xml").getroot()

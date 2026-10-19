@@ -59,6 +59,7 @@ public class Home extends Activity {
     registerReceiver(serviceState, new IntentFilter("nyc.arash.ridehome.NAVIGATION_STATE"));
     registered = true;
     render();
+    Updates.get(this).check(this, false);
   }
 
   @Override
@@ -144,6 +145,8 @@ public class Home extends Activity {
           if (Navigation.live != null) Navigation.live.showTray();
           else navigationSetup();
         });
+    if (Updates.get(this).readyVersion() != null)
+      chip(header, "Update available", () -> Updates.get(this).show(this));
     chip(header, "Settings", () -> settings());
     TextClock clock = new TextClock(this);
     clock.setFormat12Hour("h:mm");
@@ -468,12 +471,14 @@ public class Home extends Activity {
         "Settings",
         null,
         Arrays.asList(
+            "Updates",
             "Edit favorites",
             "Home tab: reset position",
             "Home tab access",
             "Default home app",
             "Android settings"),
         Arrays.asList(
+            () -> Updates.get(this).show(this),
             () -> editMenu(),
             () -> {
               getSharedPreferences("home", 0)
