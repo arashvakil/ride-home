@@ -28,6 +28,19 @@ account, analytics, network permission, or runtime libraries.
 [See the on-demand control tray](docs/controls.png). Example apps are manually
 selected for these screenshots; see [third-party notices](THIRD_PARTY_NOTICES.md).
 
+## SoulCycle prerequisite: an already-unlocked tablet
+
+**For a SoulCycle bike, Ride Home assumes you have already “jailbroken” the tablet:**
+you can open Android settings and install APKs outside the SoulCycle app. Ride Home
+starts after that step; it does not unlock the tablet itself. Here, “jailbroken” means
+access to Android settings and sideloading, not necessarily root or an unlocked bootloader.
+If your bike already boots into Android with Nova, you are at the expected starting point.
+
+See the [SoulCycle access notes and APK tutorial](docs/installation.md#soulcycle-access-and-apk-sideloading)
+for the community-reported camera-area gesture, version-dependent access codes, and
+linked video. The video demonstrates **Peloton APK sideloading**, not the SoulCycle
+settings-unlock procedure. Use a **USB-C cable that supports data**, not just charging.
+
 ## Build
 
 Requirements: macOS or Linux, Bash, Python 3, JDK 17, and the Android SDK with
@@ -52,7 +65,9 @@ The generated developer APK is intended for local testing, not an official relea
 
 ## Install safely
 
-Keep your current launcher installed until you have tested Ride Home.
+On SoulCycle, complete the [tablet-access prerequisite](#soulcycle-prerequisite-an-already-unlocked-tablet)
+first. Keep your current launcher (for example, Nova) installed until you have tested
+Ride Home.
 
 ```sh
 adb devices -l

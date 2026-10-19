@@ -1,5 +1,42 @@
 # Installation and recovery
 
+## SoulCycle access and APK sideloading
+
+Ride Home assumes your SoulCycle tablet is already **“jailbroken” or unlocked for
+Android settings and APK sideloading**. This describes getting out of the restricted
+SoulCycle interface; Ride Home itself does not require root or a bootloader unlock.
+A tablet that already boots directly into Android with Nova is a suitable starting
+point. Keep that working launcher installed while testing Ride Home.
+
+### Community-reported SoulCycle settings access
+
+Older community instructions describe this sequence from the SoulCycle interface:
+
+1. Press and hold the area immediately below the camera for about **10 seconds**
+   to bring up a code prompt.
+2. Depending on the software version, community reports mention **`983845623`** or
+   **`548278537`** as access codes.
+3. Once Android settings are accessible, enable developer/USB debugging access as
+   needed for ADB and authorize your computer on the tablet.
+
+These are historical community reports, not a SoulCycle unlock procedure independently
+verified by this project. The gesture, prompt and codes may differ or be unavailable
+on your firmware. This project's device testing started with Android/ADB access
+already enabled; it did not reproduce the initial unlock.
+
+### APK tutorial and USB-C cable
+
+[Watch the linked APK-sideloading tutorial](https://www.youtube.com/watch?v=O8Vq-JK1um8).
+The community discussion identifies this as a **Peloton** video: use it for the general
+APK/ADB workflow **after** reaching Android settings, not as a SoulCycle-specific
+settings-unlock tutorial. The video itself has not been independently reviewed here.
+
+Use a **data-capable USB-C cable** between the computer and tablet. A charge-only cable
+will not provide the USB data connection needed to push/install APKs. Check
+`adb devices -l` and accept the tablet's USB-debugging authorization prompt before
+following the install commands below. An `unauthorized` entry needs authorization on
+the tablet; no entry can indicate a cable, port or debugging-setup problem.
+
 ## Before you change the default launcher
 
 Build the developer APK using the README. Retain another working launcher, record
