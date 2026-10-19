@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a launcher or Home-tab problem without private device data.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include private ride data, account details, signing keys, ADB serials or unredacted screenshots. Sensitive vulnerabilities should follow SECURITY.md.
+  - type: input
+    id: device
+    attributes:
+      label: Device model and Android version
+      placeholder: Model name and Android version only; no serial number
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Ride Home version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps, expected behavior and actual behavior
+    validations:
+      required: true
