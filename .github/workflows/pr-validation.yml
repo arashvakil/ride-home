@@ -1,0 +1,32 @@
+name: PR validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Android build and regression checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install pinned Android SDK packages
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" > /dev/null
+      - name: Regression and source-boundary checks
+        run: ./scripts/test.sh
+      - name: Build and verify local developer APK
+        run: ./build.sh
